@@ -25,9 +25,9 @@ Below are some of the initial ideas on roughly how it's going to look like, plus
 Show us the steps you took to approach your final design. What changes did you make along the way? What parts of your design did you consider especially important and spend a lot of time on? How did your design evolve naturally? Did you have any happy accidents? What did you try to do, but it didn’t work out? 
 We want to see lots of pictures here, but you are also encoraged to write about your process. 
 
-* Date: 00/00/00    
-    ![img]()   
-    We expect you to collect images and reflections on your work at least twice a week. This means this section should spread over 3 or more pages. 
+* Date: 17/11/2023    
+    ![img](imgs\dev_01.png)   
+    Started experimenting with p5 sketches and its functions, I thought it would be useful to first visualise the gride space on which I will be drawing and experiment my designs on, as this wold help with placing shapes a lot easier.
 
 * Date: 00/00/00    
     ![img]()   
