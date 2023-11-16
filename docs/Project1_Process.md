@@ -12,7 +12,9 @@ Describe your response to the brief: your intentions, influences, and goals. Wha
 
 Include any images you found inspiring while considering your response to this brief. These can include subject matter that inspired you or stylistic / colour reference. 
 
-![img]()![img]()![img]()
+![img](imgs\Precedent01.jpeg) 
+![img](imgs\Precedent02.png) 
+![img](imgs\Precedent03.png)
 
 
 # Design development
