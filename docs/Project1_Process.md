@@ -9,8 +9,11 @@ Think about giving context to your project. Describe the project brief in your o
 Describe your response to the brief: your intentions, influences, and goals. What do you want to get out of this project? What is most interesting or exciting about this project to you? Do you wish to challenge yourself by adding any additional restraints beyond what was described in the brief? 
 
 # Precedent images
+As we have a naughty sausage dog and my wife absolutely adores him, I thought it would be really cute to make him the center piece of this design project. 
 
-Include any images you found inspiring while considering your response to this brief. These can include subject matter that inspired you or stylistic / colour reference. 
+As she's into Disney/Cartoon like styles, in piticular more round edges than sharpe edges, and perfers lightish pink colour schemes, I thought it would be appropriate to have a cartoon styled sausage dog illisutration with more round/softer outlines, with a colour scheme around lighter colours. Oh and as our sausage dog is browned colour, that would be the colour we go with for the puppy himself.
+
+Below are some of the initial ideas on roughly how it's going to look like, plus-minus some details depending on how the coding part goes.
 
 ![img](imgs\Precedent01.jpeg) 
 ![img](imgs\Precedent02.png) 
