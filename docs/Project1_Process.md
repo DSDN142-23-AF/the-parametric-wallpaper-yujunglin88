@@ -29,13 +29,13 @@ We want to see lots of pictures here, but you are also encoraged to write about 
     ![img](imgs\dev_01.png)   
     Started experimenting with p5 sketches and its functions, I thought it would be useful to first visualise the gride space on which I will be drawing and experiment my designs on, as this wold help with placing shapes a lot easier.
 
-* Date: 00/00/00    
-    ![img]()   
-    We expect you to collect images and reflections on your work at least twice a week. This means this section should spread over 3 or more pages. 
+* Date: 18/11/2023    
+    ![img](imgs\dev_02.png)   
+    Translated origin to center of cell for easier anchoring + placed all anchor points for body parts, using these as guides to start drawing the body
 
-* Date: 00/00/00    
-    ![img]()   
-    We expect you to collect images and reflections on your work at least twice a week. This means this section should spread over 3 or more pages. 
+* Date: 13/11/2023    
+    ![img](imgs\dev_03.png)   
+    First MVP drafted, removed all anchors and commented out grids as I feel like I can focus more on the design components now.
 
 # Experiments (colour, composition, techniques)
 What did you try out and then choose not to go with? Did you try a few different versions of the same thing? How did you decide on your final design? What techniques did you attempt to implement, but the result didn’t turn out as expected?
