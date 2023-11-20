@@ -1,24 +1,39 @@
 //============================================================================================//
 //========================== Globals (I'm sorry mama) ========================================//
 //============================================================================================//
+const color_modes = {   // Available colour modes for the puppy
+  MONO: 'MONO',
+  SHADOW: 'SHADOW',
+  BLACK_WHITE: 'BLACK_WHITE',
+  DUO: 'DUO',
+  RAINBOW: 'RAINBOW'
+};
+let iter = 1;
+//============================================================================================//
 const cell_width  = 200;
-const cell_height = 200;
-// const colour_bg = [240, 255, 240]; // original light honeydew green colour
-const colour_bg = [250, 200, 200]; // light pink colour
+const cell_height = 100;
+const cell_offset = 100;
+//============================================================================================//
+const colour_bg = [250, 200, 200];    // light pink colour
+const colour_stroke = [110, 40, 40];  // 
+const colour_dog = [204, 123, 73];    // sausage dog red colour
+const colour_duo = [90, 20, 20];      // the colur of the duo
+const push_pop = true;
+const colour_mode = color_modes.RAINBOW;
 
 
 //============================================================================================//
 //==================================== Setup =================================================//
 //============================================================================================//
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(DEVELOP_GLYPH); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
   pWallpaper.resolution(FIT_TO_SCREEN);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
   pWallpaper.grid_settings.cell_width  = cell_width;
   pWallpaper.grid_settings.cell_height = cell_height;
-  pWallpaper.grid_settings.row_offset  = 50;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
 }
 
 function wallpaper_background() {
@@ -30,12 +45,16 @@ function wallpaper_background() {
 //==================================== Design ================================================//
 //============================================================================================//
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
+  push_pop ? push() : {};
   translate(cell_width/2, cell_height/2); // move origin to center of cell
 
+  push();
+  translate(-14, 10);
+
   // TODO: guide lines, remove before outputting 
-  stroke(200, 200, 200);
-  textAlign(CENTER);
-  textSize(8);
+  // stroke(200, 200, 200);
+  // textAlign(CENTER);
+  // textSize(8);
   // for (let i = -cell_width / 2; i <= cell_width / 2; i += 20) {
   //   text(i, -cell_width / 2 - 15, i +2);
   //   line(-cell_width / 2, i, cell_width / 2, i);
@@ -46,10 +65,34 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   // }
 
 
-  stroke(0, 0, 0);
+  switch (colour_mode) {
+    case color_modes.MONO:
+      fill(colour_dog[0], colour_dog[1], colour_dog[2]);
+      break;
+    case color_modes.SHADOW:
+      (iter += 1) % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : fill(0,0,0); 
+      break;
+    case color_modes.BLACK_WHITE:
+      (iter += 1) % 2 ==  0 ? fill(0, 0, 0) : fill(256,256,256); 
+      break;
+    case color_modes.DUO:
+      (iter += 1) % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : 
+                              fill(colour_duo[0], colour_duo[1], colour_duo[2]); 
+      break;
+    case color_modes.RAINBOW:
+      fill(random(100,256), random(100,256), random(100,256));
+      break;
+  }
+
+  switch (colour_mode) {
+    case color_modes.SHADOW:
+      iter % 2 ==  0 ? stroke(colour_stroke[0], colour_stroke[1], colour_stroke[2]) : stroke(0,0,0);
+      break;
+    default:
+      stroke(colour_stroke[0], colour_stroke[1], colour_stroke[2]);
+  }
   strokeWeight(1);
-  // noFill();
-  fill(204, 123, 73);
+
 
   beginShape(); // Body
   vertex(-47, 10); 
@@ -61,13 +104,6 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(-37, 19, -37, 22, -42, 22); // right back paw
   bezierVertex(-47, 22, -47, 22, -47, 10); // right back left
   endShape();
-  
-  // beginShape();
-  // vertex(-47, 10);
-  // bezierVertex(-47, 22, -47, 22, -42, 22); // right back left
-  // bezierVertex(-37, 22, -37, 19, -42, 19); // right back paw
-  // bezierVertex(-43, 19, -42, 22, -41, 11); // right back right
-  // endShape();
 
   beginShape(); // Legs
   vertex(40, 8);
@@ -95,16 +131,15 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(-49, -35, -55, -18, -43, -17); // left
   endShape();
   
-  translate(10,0);
+  translate(13,3);
 
   beginShape(); // Head
   vertex(30, -40);
   bezierVertex(45, -55, 50, -30, 70, -35); // head top
   bezierVertex(78, -35, 73, -32, 70, -30); // nose
-  bezierVertex(60, -20, 40, -30, 30, -20); // head bottom
+  bezierVertex(58, -20, 40, -30, 40, -21); // head bottom
   endShape();
 
-  // fill(256, 256, 256);
   beginShape(); // Ears
   vertex(35, -42);
   bezierVertex(15, -35, 25, -25, 35, -18); // left ear
@@ -112,7 +147,13 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(38, -35, 38, -35, 38, -43); // right ear
   endShape();
 
-  fill(256, 256, 256);
+  switch (colour_mode) {
+    case color_modes.SHADOW:
+      iter % 2 ==  0 ? fill(256,256,256) : fill(0,0,0);
+      break;
+    default:
+      fill(256,256,256);
+  }
   circle(45, -38, 5); // Eyes
   fill(0, 0, 0);
   circle(46, -38, 3);
@@ -126,4 +167,6 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(78, -35, 73, -32, 70, -30); // nose right
   bezierVertex(68, -28, 65, -33, 70, -35); // nose left
   endShape();
+  pop();
+  push_pop ? pop() : {};
 }
