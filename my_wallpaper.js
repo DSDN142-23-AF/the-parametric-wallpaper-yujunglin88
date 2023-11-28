@@ -11,7 +11,7 @@ const color_modes = {   // Available colour modes for the puppy
 let iter = 1;
 //============================================================================================//
 const cell_width  = 200;
-const cell_height = 100;
+const cell_height = 150;
 const cell_offset = 100;
 //============================================================================================//
 const colour_bg = [250, 200, 200];    // light pink colour
@@ -19,14 +19,19 @@ const colour_stroke = [110, 40, 40];  //
 const colour_dog = [204, 123, 73];    // sausage dog red colour
 const colour_duo = [90, 20, 20];      // the colur of the duo
 const push_pop = true;
-const colour_mode = color_modes.RAINBOW;
+const colour_mode = color_modes.MONO;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = true;
+const show_brook = false; // show the sausage dog <3
+let length = 1; // length of the brook the sausage dog <3
 
 
 //============================================================================================//
 //==================================== Setup =================================================//
 //============================================================================================//
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.output_mode(DEVELOP_GLYPH); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
   pWallpaper.resolution(FIT_TO_SCREEN);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
@@ -34,6 +39,9 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.cell_width  = cell_width;
   pWallpaper.grid_settings.cell_height = cell_height;
   pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  length = max(length, 1);
 }
 
 function wallpaper_background() {
@@ -46,37 +54,85 @@ function wallpaper_background() {
 //============================================================================================//
 function my_symbol() { // do not rename this function. Treat this similarly to a Draw function
   push_pop ? push() : {};
+  iter++;
+  angleMode(DEGREES); 
   translate(cell_width/2, cell_height/2); // move origin to center of cell
 
+  if (show_grid)    draw_grid();
+  if (show_line)    draw_line();
+  if (show_coockie) draw_cockie();
+  if (show_brook)   draw_brook(); 
+  
+  push_pop ? pop() : {};
+}
+
+//============================================================================================//
+//=================================== Elements ===============================================//
+//============================================================================================//
+
+function draw_grid() {
+  stroke(200, 200, 200);
+  textAlign(CENTER);
+  textSize(5);
+  for (let i = -cell_width / 2; i <= cell_width / 2; i += 10) {
+    text(i, i, -cell_height / 2 - 5);
+    line(i, -cell_height / 2 , i, cell_height / 2);
+  }
+  for (let i = -cell_height/2; i <= cell_height/2; i += 10) {
+    text(i, -cell_width / 2 - 5, i);
+    line(-cell_width / 2, i, cell_width / 2, i);
+  }
+}
+
+function draw_line() { 
+  stroke(242, 165, 201);
+  strokeWeight(6);
+  noFill();
+  for (let x = -cell_width / 2; x < cell_width / 2; x += 50) {
+    for (let y = -cell_height/2; y < cell_height/2; y += 50) {
+      push();
+      translate(x + 25, 0);
+      bezier(-50, -cell_height/2, -50, cell_height/3, 50, -cell_height/3, 50, cell_height/2);
+      pop();
+    }
+  }
+}
+
+function draw_cockie() {
+  for (let x = -cell_width / 2; x < cell_width / 2; x += 50) {
+    for (let y = -cell_height/2; y < cell_height/2; y += 50) {
+      push();
+      noStroke();
+      fill(random(100,256), random(100,256), random(100,256));
+      translate(x + 25, y + 25);
+      rotate(-25);
+      rect(-5, -3, 10, 6); 
+      circle(-5, -2.5, 6); 
+      circle(-5, 2.5, 6);
+      circle(5, -2.5, 6); 
+      circle(5, 2.5, 6);
+      pop();
+    }
+  }
+}
+
+
+function draw_brook(){
   push();
   translate(-14, 10);
-
-  // TODO: guide lines, remove before outputting 
-  // stroke(200, 200, 200);
-  // textAlign(CENTER);
-  // textSize(8);
-  // for (let i = -cell_width / 2; i <= cell_width / 2; i += 20) {
-  //   text(i, -cell_width / 2 - 15, i +2);
-  //   line(-cell_width / 2, i, cell_width / 2, i);
-  // }
-  // for (let i = -cell_height/2; i <= cell_height/2; i += 20) {
-  //   text(i, i, -cell_height/2 - 10);
-  //   line(i, -cell_height/2, i, cell_height/2);
-  // }
-
 
   switch (colour_mode) {
     case color_modes.MONO:
       fill(colour_dog[0], colour_dog[1], colour_dog[2]);
       break;
     case color_modes.SHADOW:
-      (iter += 1) % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : fill(0,0,0); 
+      iter % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : fill(0,0,0); 
       break;
     case color_modes.BLACK_WHITE:
-      (iter += 1) % 2 ==  0 ? fill(0, 0, 0) : fill(256,256,256); 
+      iter % 2 ==  0 ? fill(0, 0, 0) : fill(256,256,256); 
       break;
     case color_modes.DUO:
-      (iter += 1) % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : 
+      iter % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : 
                               fill(colour_duo[0], colour_duo[1], colour_duo[2]); 
       break;
     case color_modes.RAINBOW:
@@ -95,16 +151,18 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
 
 
   beginShape(); // Body
-  vertex(-47, 10); 
-  bezierVertex(-44, 4, -53, 0, -50, -10);   // butt
-  bezierVertex(-40, -40, 10, -10, 40, -20); // back
-  bezierVertex(60, -30, 60, 0, 40, 10);     // chest
-  bezierVertex(20, 20, -20, -5, -40, 11);   // tummy
-  bezierVertex(-42, 22, -43, 19, -42, 19); // right back right
-  bezierVertex(-37, 19, -37, 22, -42, 22); // right back paw
-  bezierVertex(-47, 22, -47, 22, -47, 10); // right back left
+  vertex(-47 - length, 10); 
+  bezierVertex(-44 - length, 4,  -53 - length, 0,  -50 - length, -10); // butt
+  bezierVertex(-40 - length, -40, 10 + length, -10, 40 + length, -20); // back
+  bezierVertex(60  + length, -30, 60 + length, 0,   40 + length, 10); // chest
+  bezierVertex(20  + length, 20, -20 - length, -5, -40 - length, 11); // tummy
+  bezierVertex(-42 - length, 22, -43 - length, 19, -42 - length, 19); // leg right back right
+  bezierVertex(-37 - length, 19, -37 - length, 22, -42 - length, 22); // leg right back paw
+  bezierVertex(-47 - length, 22, -47 - length, 22, -47 - length, 10); // leg right back left
   endShape();
 
+  push();
+  translate(length, 0);
   beginShape(); // Legs
   vertex(40, 8);
   bezierVertex(42, 18, 52, 8, 55, 13);  // right front left
@@ -117,6 +175,9 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(40, 22, 40, 19, 35, 19); // left front paw
   bezierVertex(34, 19, 35, 22, 36, 12); // left front right
   endShape();
+  pop();
+  push();
+  translate(-length,0);
   beginShape();
   vertex(-47, 5);
   bezierVertex(-58, 5, -49, 6, -55, 10); // left back top
@@ -125,13 +186,17 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(-47, 10, -49, 9, -47, 9.5); // left back bottom
   endShape();
 
+  push();
+  translate(0, length/18 > 0 ? length/18 : 0);
   beginShape(); // Tail
   vertex(-40, -20);
   bezierVertex(-55, -20, -45, -35, -60, -40); // right
   bezierVertex(-49, -35, -55, -18, -43, -17); // left
   endShape();
-  
-  translate(13,3);
+  pop();
+  pop();
+
+  translate(13+length,3);
 
   beginShape(); // Head
   vertex(30, -40);
@@ -168,5 +233,4 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
   bezierVertex(68, -28, 65, -33, 70, -35); // nose left
   endShape();
   pop();
-  push_pop ? pop() : {};
 }
