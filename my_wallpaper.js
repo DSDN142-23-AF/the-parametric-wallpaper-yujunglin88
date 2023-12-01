@@ -1,6 +1,8 @@
 //============================================================================================//
 //========================== Globals (I'm sorry mama) ========================================//
 //============================================================================================//
+let iter = 1; // iteration counter, I'm sorry I had to do this D:
+//============================================================================================//
 const color_modes = {   // Available colour modes for the puppy
   MONO: 'MONO',
   SHADOW: 'SHADOW',
@@ -8,31 +10,49 @@ const color_modes = {   // Available colour modes for the puppy
   DUO: 'DUO',
   RAINBOW: 'RAINBOW'
 };
-let iter = 1;
-//============================================================================================//
-const cell_width  = 200;
+const cp_bg = { // colour palette for the background assests
+  c1: '#F2A5C9',   // Lavender pink
+  c2: '#FAC8C8',   // Tea rose
+  c3: '#F9DCED',   // Mimi pink
+  c4: '#FAE3F0',   // Pale purple
+  c5: '#FDECEC',   // Lavender blush
+  r_low: 150, // lower bound for random colour generation
+  r_high: 256 // upper bound for random colour generation
+}
+const cp_dog = { // colour palette for Brook the sausage dog <3
+  c1: '#5A1414',   // Chocolate cosmos
+  c2: '#6E2828',   // Garnet
+  c3: '#CC7B49',   // Caramel
+  c4: '#D8A17A',   // Buff
+  c5: '#E0BBA9',   // Desert sand
+  c6: '#E8D5D3',   // Misty rose
+  r_low: 50, // lower bound for random colour generation
+  r_high: 200 // upper bound for random colour generation
+}
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
 const cell_height = 150;
 const cell_offset = 100;
 //============================================================================================//
-const colour_bg = [250, 200, 200];    // light pink colour
-const colour_stroke = [110, 40, 40];  // 
-const colour_dog = [204, 123, 73];    // sausage dog red colour
-const colour_duo = [90, 20, 20];      // the colur of the duo
-const push_pop = true;
 const colour_mode = color_modes.MONO;
+const push_pop = true;
 const show_grid = false;  // show grid lines, should be false for printing
 const show_coockie = true;
-const show_line = true;
-const show_brook = false; // show the sausage dog <3
-let length = 1; // length of the brook the sausage dog <3
+const show_line = false;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 22;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
 
 
 //============================================================================================//
 //==================================== Setup =================================================//
 //============================================================================================//
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(DEVELOP_GLYPH); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
-  pWallpaper.resolution(FIT_TO_SCREEN);
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(A3);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
@@ -41,11 +61,11 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.row_offset  = cell_offset;
 
   // param limiting
-  length = max(length, 1);
+  b_length = max(b_length, 1);
 }
 
 function wallpaper_background() {
-  background(colour_bg[0], colour_bg[1], colour_bg[2]);
+  background(cp_bg.c2);
 }
 
 
@@ -60,6 +80,7 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
 
   if (show_grid)    draw_grid();
   if (show_line)    draw_line();
+  if (show_paw)     draw_paws();
   if (show_coockie) draw_cockie();
   if (show_brook)   draw_brook(); 
   
@@ -71,7 +92,7 @@ function my_symbol() { // do not rename this function. Treat this similarly to a
 //============================================================================================//
 
 function draw_grid() {
-  stroke(200, 200, 200);
+  stroke('#C8C8C8');
   textAlign(CENTER);
   textSize(5);
   for (let i = -cell_width / 2; i <= cell_width / 2; i += 10) {
@@ -85,8 +106,9 @@ function draw_grid() {
 }
 
 function draw_line() { 
-  stroke(242, 165, 201);
-  strokeWeight(6);
+  push();
+  stroke(cp_bg.c1);
+  strokeWeight(line_weight);
   noFill();
   for (let x = -cell_width / 2; x < cell_width / 2; x += 50) {
     for (let y = -cell_height/2; y < cell_height/2; y += 50) {
@@ -96,15 +118,17 @@ function draw_line() {
       pop();
     }
   }
+  pop();
 }
 
 function draw_cockie() {
-  for (let x = -cell_width / 2; x < cell_width / 2; x += 50) {
-    for (let y = -cell_height/2; y < cell_height/2; y += 50) {
+  push();
+  noStroke();
+  for (let x = -cell_width / 2; x <= cell_width / 2; x += 50) {
+    for (let y = -cell_height/2; y <= cell_height/2; y += 50) {
       push();
-      noStroke();
-      fill(random(100,256), random(100,256), random(100,256));
-      translate(x + 25, y + 25);
+      fill(random(cp_bg.r_low,cp_bg.r_high ), random(cp_bg.r_low,cp_bg.r_high ), random(cp_bg.r_low,cp_bg.r_high ));
+      translate(x - 25, y + 25);
       rotate(-25);
       rect(-5, -3, 10, 6); 
       circle(-5, -2.5, 6); 
@@ -114,6 +138,58 @@ function draw_cockie() {
       pop();
     }
   }
+  pop();
+}
+
+function draw_paws(){
+  function paw1(){
+    push();
+    scale(6);
+    translate(-18, -10);
+    rotate(-25);
+    draw_paw(cp_bg.c3, false);
+    pop();
+  }
+  function paw2(){
+    push();
+    scale(3);
+    translate(5, -25);
+    rotate(25);
+    draw_paw(cp_bg.c4, false);
+    pop();
+  }
+  if (alternate_paw){
+    iter % alternate_interval == 0 ? iter % 2 == 0 ? paw1() : paw2() : {};
+  } else {
+    paw1();
+    paw2();
+  }
+}
+
+function draw_paw(hex='#000000', fill_paw=true) {
+  stroke(hex);
+  fill(hex);
+  fill_paw ? {} : noFill();
+  push();
+  rotate(-20);
+  ellipse(-8, -3, 6, 10);
+  pop();
+  push();
+  rotate(-10);
+  ellipse(-2.5, -5, 6, 10);
+  pop();
+  push();
+  rotate(10);
+  ellipse(2.5, -5, 6, 10);
+  pop();
+  push();
+  rotate(20);
+  ellipse(8, -3, 6, 10);
+  pop();
+  beginShape();
+  vertex(0, 0);
+  bezierVertex(-28, 18, 28, 18, 0, 0);
+  endShape();
 }
 
 
@@ -123,46 +199,45 @@ function draw_brook(){
 
   switch (colour_mode) {
     case color_modes.MONO:
-      fill(colour_dog[0], colour_dog[1], colour_dog[2]);
+      fill(cp_dog.c3);
       break;
     case color_modes.SHADOW:
-      iter % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : fill(0,0,0); 
+      iter % 2 ==  0 ? fill(cp_dog.c3) : fill('#000000'); 
       break;
     case color_modes.BLACK_WHITE:
-      iter % 2 ==  0 ? fill(0, 0, 0) : fill(256,256,256); 
+      iter % 2 ==  0 ? fill('#000000') : fill('#FFFFFF'); 
       break;
     case color_modes.DUO:
-      iter % 2 ==  0 ? fill(colour_dog[0], colour_dog[1], colour_dog[2]) : 
-                              fill(colour_duo[0], colour_duo[1], colour_duo[2]); 
+      iter % 2 ==  0 ? fill(cp_dog.c3) : fill(cp_dog.c2);
       break;
     case color_modes.RAINBOW:
-      fill(random(100,256), random(100,256), random(100,256));
+      fill(random(cp_dog.r_low,cp_bg.r_high ), random(cp_dog.r_low,cp_bg.r_high ), random(cp_dog.r_low,cp_bg.r_high ));
       break;
   }
 
   switch (colour_mode) {
     case color_modes.SHADOW:
-      iter % 2 ==  0 ? stroke(colour_stroke[0], colour_stroke[1], colour_stroke[2]) : stroke(0,0,0);
+      iter % 2 ==  0 ? stroke(cp_dog.c1) : stroke('#000000');
       break;
     default:
-      stroke(colour_stroke[0], colour_stroke[1], colour_stroke[2]);
+      stroke(cp_dog.c1);
   }
   strokeWeight(1);
 
 
   beginShape(); // Body
-  vertex(-47 - length, 10); 
-  bezierVertex(-44 - length, 4,  -53 - length, 0,  -50 - length, -10); // butt
-  bezierVertex(-40 - length, -40, 10 + length, -10, 40 + length, -20); // back
-  bezierVertex(60  + length, -30, 60 + length, 0,   40 + length, 10); // chest
-  bezierVertex(20  + length, 20, -20 - length, -5, -40 - length, 11); // tummy
-  bezierVertex(-42 - length, 22, -43 - length, 19, -42 - length, 19); // leg right back right
-  bezierVertex(-37 - length, 19, -37 - length, 22, -42 - length, 22); // leg right back paw
-  bezierVertex(-47 - length, 22, -47 - length, 22, -47 - length, 10); // leg right back left
+  vertex(-47 - b_length, 10); 
+  bezierVertex(-44 - b_length, 4,  -53 - b_length, 0,  -50 - b_length, -10); // butt
+  bezierVertex(-40 - b_length, -40, 10 + b_length, -10, 40 + b_length, -20); // back
+  bezierVertex(60  + b_length, -30, 60 + b_length, 0,   40 + b_length, 10); // chest
+  bezierVertex(20  + b_length, 20, -20 - b_length, -5, -40 - b_length, 11); // tummy
+  bezierVertex(-42 - b_length, 22, -43 - b_length, 19, -42 - b_length, 19); // leg right back right
+  bezierVertex(-37 - b_length, 19, -37 - b_length, 22, -42 - b_length, 22); // leg right back paw
+  bezierVertex(-47 - b_length, 22, -47 - b_length, 22, -47 - b_length, 10); // leg right back left
   endShape();
 
   push();
-  translate(length, 0);
+  translate(b_length, 0);
   beginShape(); // Legs
   vertex(40, 8);
   bezierVertex(42, 18, 52, 8, 55, 13);  // right front left
@@ -177,7 +252,7 @@ function draw_brook(){
   endShape();
   pop();
   push();
-  translate(-length,0);
+  translate(-b_length,0);
   beginShape();
   vertex(-47, 5);
   bezierVertex(-58, 5, -49, 6, -55, 10); // left back top
@@ -187,7 +262,7 @@ function draw_brook(){
   endShape();
 
   push();
-  translate(0, length/18 > 0 ? length/18 : 0);
+  translate(0, b_length/18 > 0 ? b_length/18 : 0);
   beginShape(); // Tail
   vertex(-40, -20);
   bezierVertex(-55, -20, -45, -35, -60, -40); // right
@@ -196,7 +271,7 @@ function draw_brook(){
   pop();
   pop();
 
-  translate(13+length,3);
+  translate(13+b_length,3);
 
   beginShape(); // Head
   vertex(30, -40);
@@ -214,20 +289,20 @@ function draw_brook(){
 
   switch (colour_mode) {
     case color_modes.SHADOW:
-      iter % 2 ==  0 ? fill(256,256,256) : fill(0,0,0);
+      iter % 2 ==  0 ? fill('#FFFFFF') : fill('#000000');
       break;
     default:
-      fill(256,256,256);
+      fill('#FFFFFF');
   }
   circle(45, -38, 5); // Eyes
-  fill(0, 0, 0);
+  fill('#000000');
   circle(46, -38, 3);
 
   noFill();
   bezier(50, -30, 50, -28, 60, -26, 66.5, -27.5); // mouse
 
   beginShape(); // nose
-  fill(0, 0, 0);
+  fill('#000000');
   vertex(70, -35);
   bezierVertex(78, -35, 73, -32, 70, -30); // nose right
   bezierVertex(68, -28, 65, -33, 70, -35); // nose left

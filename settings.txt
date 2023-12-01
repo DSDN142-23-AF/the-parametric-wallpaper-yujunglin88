@@ -1,54 +1,356 @@
-You will need to fill out this file for hand in. 
-
-The bellow is just an example, feel free to disregard this documents contents.
-
-
-Your final settings.txt will look something like this when you are finished:
-
-/////////////////////////////////
-
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
 Wallpaper 1:
 
-//your parameter variables go here!
-let rect_width  = 20;
-let rect_height = 20;
-let paramter1 = 10;
-let paramter2 = true;
-let paramter3 = 50; 
-let paramter4 = 0; 
-let paramter5 = 60;
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.RAINBOW;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = true;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = true; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 22;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
 
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
   pWallpaper.resolution(NINE_LANDSCAPE);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
-  pWallpaper.grid_settings.cell_width  = 100;
-  pWallpaper.grid_settings.cell_height = 100;
-  pWallpaper.grid_settings.row_offset  = 50;
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
 }
 
-/////////////////////////////////
 
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
 Wallpaper 2:
 
-//your parameter variables go here!
-let rect_width  = 10;
-let rect_height = 10;
-let paramter1 = 20;
-let paramter2 = false;
-let paramter3 = 50; 
-let paramter4 = 80; 
-let paramter5 = 30;
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 450;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.DUO;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = false;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = true; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 22;   // stroke weight of the background line
+let b_length = 100; // length of Brook the sausage dog <3
 
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
   pWallpaper.resolution(NINE_LANDSCAPE);
   pWallpaper.show_guide(false); //set this to false when you're ready to print
 
   //Grid settings
-  pWallpaper.grid_settings.cell_width  = 100;
-  pWallpaper.grid_settings.cell_height = 100;
-  pWallpaper.grid_settings.row_offset  = 0;
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 3:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 200;
+const cell_height = 150;
+const cell_offset = 120;
+//============================================================================================//
+const colour_mode = color_modes.SHADOW;
+const push_pop = false;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = false;
+const show_line = false;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = true; // alternate the paws
+const alternate_interval = 4; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 22;   // stroke weight of the background line
+let b_length = 50; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GLIDE_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 4:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.MONO;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = false;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 22;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 5:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.BLACK_WHITE;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = false;
+const show_line = true;
+const show_paw = false;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 10;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 6:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.MONO;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = false;
+const show_line = false;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 10;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 7:
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.BLACK_WHITE;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = false;
+const show_paw = false;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 10;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 8:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 50;
+//============================================================================================//
+const colour_mode = color_modes.DUO;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = true;
+const show_line = false;
+const show_paw = false;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 6;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GLIDE_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
+}
+
+
+
+///////////////////////////////// ///////////////////////////////// ///////////////////////////////// ///////////////////////////////// 
+Wallpaper 9:
+
+//============================== CONTROL VARIABLES ===========================================//
+const cell_width  = 250;
+const cell_height = 150;
+const cell_offset = 100;
+//============================================================================================//
+const colour_mode = color_modes.MONO;
+const push_pop = true;
+const show_grid = false;  // show grid lines, should be false for printing
+const show_coockie = false;
+const show_line = true;
+const show_paw = true;
+const show_brook = true; // show the sausage dog <3
+const alternate_paw = false; // alternate the paws
+const alternate_interval = 1; // how often the paws apears: even = big paws, odd =  both paws
+const line_weight = 6;   // stroke weight of the background line
+let b_length = 1; // length of Brook the sausage dog <3
+
+
+//============================================================================================//
+//==================================== Setup =================================================//
+//============================================================================================//
+function setup_wallpaper(pWallpaper) {
+  pWallpaper.output_mode(GRID_WALLPAPER); // DEVELOP_GLYPH   GRID_WALLPAPER    GLIDE_WALLPAPER
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); //set this to false when you're ready to print
+
+  //Grid settings
+  pWallpaper.grid_settings.cell_width  = cell_width;
+  pWallpaper.grid_settings.cell_height = cell_height;
+  pWallpaper.grid_settings.row_offset  = cell_offset;
+
+  // param limiting
+  b_length = max(b_length, 1);
 }
